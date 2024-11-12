@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Salto")]
+    public bool activarSalto = false;
     public float jumpForce = 10f;
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
 
     [Header("Agacharse")]
+    public bool activarSlide = false;
     public float crouchSpeed = 3.5f;
     public float crouchYScale = 0.5f;
     private float startYScale;
@@ -53,16 +55,6 @@ public class PlayerMovement : MonoBehaviour
     public float slopeIncreaseMultiplier = 2.5f;
 
 
-    [Header("Camara efectos")]
-    public PlayerCamera playerCamera;
-    public float cameraStartFov = 80f;
-    public float cameraFov = 85f;
-    public float cameraSlideFov = 90f;
-    public float cameraSprintFov = 85f;
-    public float cameraTilt = 5f;
-
-    private bool upwardsRunning;
-    private bool downwardsRunning;
     //private float wallClimbSpeed = 3f;
 
     // variables para el momentum
@@ -330,10 +322,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // Efecto de sonido del salto
-        PlayerAudioManager.instance.PlayJumpSound();
-        exitingSlope = true;
-        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        // ESTA FALSE; DEFAULT, asi que no salta :D
+        if(activarSalto == true)
+        {
+            // Efecto de sonido del salto
+            PlayerAudioManager.instance.PlayJumpSound();
+            exitingSlope = true;
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
     }
 
     // ############################################
@@ -342,11 +338,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartSlide()
     {
-        isSliding = true;
+        // SI ESTA ACTIVADO LO DE SLIDE
+        if (activarSlide == true)
+        {
+            isSliding = true;
 
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
+            playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
 
-        //playerCamera.DoFov(cameraSlideFov);
+            //playerCamera.DoFov(cameraSlideFov);
+        }
     }
 
     private void SlidingMovement()
