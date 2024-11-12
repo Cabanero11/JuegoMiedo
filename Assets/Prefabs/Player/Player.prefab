@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -414,7 +414,7 @@ MonoBehaviour:
   movementSpeed: 5
   walkSpeed: 3
   sprintSpeed: 6
-  groundDrag: 2
+  groundDrag: 4
   playerObj: {fileID: 5878530308385110374}
   jumpForce: 3
   jumpCooldown: 0.25
