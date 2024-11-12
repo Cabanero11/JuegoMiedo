@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -224,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
             movState = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
 
-            playerCamera.DoFov(cameraSprintFov);
+            //playerCamera.DoFov(cameraSprintFov);
         }
         // Sliding else if (isSliding) 
         else if (Input.GetKey(slideKey) && (movState != MovementState.crouching))
@@ -246,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
             movState = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
 
-            playerCamera.DoFov(cameraStartFov);
+            //playerCamera.DoFov(cameraStartFov);
         }
         // Air
         else
@@ -349,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
 
-        playerCamera.DoFov(cameraSlideFov);
+        //playerCamera.DoFov(cameraSlideFov);
     }
 
     private void SlidingMovement()
@@ -363,13 +360,13 @@ public class PlayerMovement : MonoBehaviour
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideStartYScale, playerObj.localScale.z);
 
-        playerCamera.DoFov(cameraStartFov);
+        // playerCamera.DoFov(cameraStartFov);
     }
 
 
 
 
     // ############################################
-    // ############ QUARENTENA DE CODIGO ##########
+    // ############ CUARENTENA DE CODIGO ##########
     // ############################################
 }

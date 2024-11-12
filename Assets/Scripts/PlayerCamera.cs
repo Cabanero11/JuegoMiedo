@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using DG.Tweening;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -40,8 +36,6 @@ public class PlayerCamera : MonoBehaviour
 
     void Start()
     {
-        DOTween.SetTweensCapacity(48825,50);
-
         // en el medio y invisible
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -70,23 +64,5 @@ public class PlayerCamera : MonoBehaviour
             orientation = Player.instance.GetComponent<PlayerMovement>().orientation;
     }
 
-    public void DoFov(float endValue)
-    {
-        GetComponent<Camera>().DOFieldOfView(endValue, transitionTime);
-        povCam.DOFieldOfView(endValue, transitionTime);
-    }
-
-    public void doTilt(float zTilt)
-    {
-        transform.DOLocalRotate(new Vector3(0f, 0f, zTilt), transitionTime);
-        //povCam.transform.DOLocalRotate(new Vector3(0f, 0f, zTilt), transitionTime);
-    }
-
-    public void DoFovSlide(float endValue)
-    {
-        GetComponent<Camera>().DOFieldOfView(endValue, transitionTime);
-        povCam.DOFieldOfView(endValue, transitionTime);
-
-    }
-
+    
 }
