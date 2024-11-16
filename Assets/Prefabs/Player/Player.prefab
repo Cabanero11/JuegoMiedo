@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3321131600815985717}
   - component: {fileID: 1428281473416739210}
   - component: {fileID: 5835342531928960139}
+  - component: {fileID: 130170149992452487}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -137,6 +138,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &130170149992452487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328561316693680112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5108c432fd8fba949b91ae8af67073a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 5878530308385110374}
+  bobbingSpeed: 0.03
+  bobbingAmount: 0.06
+  midpoint: 2
 --- !u!1 &1189063921829643690
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +202,7 @@ GameObject:
   - component: {fileID: 8348983433767072319}
   - component: {fileID: 4725349701350752537}
   - component: {fileID: 7719503633334056886}
+  - component: {fileID: 1884321388853229048}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -208,7 +226,7 @@ Transform:
   - {fileID: 8897026813322220567}
   - {fileID: 9213889588340758789}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8488255762158684310
 Rigidbody:
@@ -411,15 +429,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c73a643b1f2224fb41e7aef6c28bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  walkSpeed: 3
-  sprintSpeed: 6
-  groundDrag: 4
+  movementSpeed: 4
+  walkSpeed: 2
+  sprintSpeed: 4
+  groundDrag: 4.5
   playerObj: {fileID: 5878530308385110374}
+  activarSalto: 0
   jumpForce: 3
   jumpCooldown: 0.25
   airMultiplier: 0.4
-  crouchSpeed: 3.5
+  activarSlide: 0
+  crouchSpeed: 2
   crouchYScale: 0.5
   jumpKey: 32
   sprintKey: 304
@@ -440,15 +460,27 @@ MonoBehaviour:
   slideSpeed: 0
   speedIncreaseMultiplier: 1.5
   slopeIncreaseMultiplier: 2.5
-  playerCamera: {fileID: 4725349701350752537}
-  cameraStartFov: 80
-  cameraFov: 85
-  cameraSlideFov: 90
-  cameraSprintFov: 85
-  cameraTilt: 5
   orientation: {fileID: 8897026813322220567}
   cameraPosition: {fileID: 9213889588340758789}
   movState: 0
+--- !u!114 &1884321388853229048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062441090331311058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5311f206526ab8e4899150d0c9183cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 2
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  textoF: {fileID: 0}
+  playerCamera: {fileID: 3321131600815985717}
 --- !u!1 &7838749698141357576
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +711,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9006711776424003691}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &6191775037654123324
 MonoBehaviour:
   m_ObjectHideFlags: 0
