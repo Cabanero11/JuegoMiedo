@@ -16,7 +16,8 @@ public class CogerLlave : MonoBehaviour
             GameManager gameManager = FindObjectOfType<GameManager>();
             if (gameManager != null)
             {
-                GameSounds.Play("Key", volume);
+                GameSounds.Play("Key", 0.9f, 1.1f, 1f, 20f, transform.position);
+
                 gameManager.RecogerLlave(keyID);
                 Debug.Log("llave: " + keyID + " recogida.");
                 Destroy(gameObject); // Destruye la llave al recogerla

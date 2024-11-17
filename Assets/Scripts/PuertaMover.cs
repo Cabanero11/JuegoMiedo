@@ -47,14 +47,18 @@ public class PuertaMover : MonoBehaviour
 
     private void Update()
     {
-        if (jugadorDentro && Input.GetKeyDown(KeyCode.F) && !puertaAbierta)
+        bool comprobarDentroPuerta = jugadorDentro && Input.GetKeyDown(KeyCode.F) && !puertaAbierta;
+
+        if (comprobarDentroPuerta)
         {
-            if (gameManager != null && gameManager.TieneLlave(keyIDRequerida))
+            bool tieneLLave = gameManager != null && gameManager.TieneLlave(keyIDRequerida);
+
+            if (tieneLLave)
             {
                 puertaAbierta = true;
-                GameSounds.Play("Puerta", 0.5f);
+                GameSounds.Play("Puerta", 0.9f, 1.1f, 1f, 20f, transform.position);
 
-                Debug.Log("Puerta abriéndose...");
+                Debug.Log("LA PUERTA SE ABRE !...!!!");
             }
             else
             {

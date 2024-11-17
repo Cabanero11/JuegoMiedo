@@ -10,11 +10,13 @@ public class GameSounds : MonoBehaviour
     {
         public string name;
         public AudioClip clip;
+        [Range(0f, 1f)] public float volume = 1f;
+        [Range(0f, 1f)] public float spatialBlend = 1f; // 0 = 2D, 1 = 3D
+        public bool loop = false;
     }
 
     [Header("Lista de sonidos")]
     public List<Sound> sounds = new List<Sound>();
-    private AudioSource audioSource;
 
     void Awake()
     {
@@ -29,14 +31,13 @@ public class GameSounds : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     /**
-     * Funcion para playear un sonido con pitch random
+     * Funcion para playear un sonido con opciones 3D creando un nuevo AudioSource cada vez.
+     * La posicion del sonido se establece en la posicion del GameObject que llama a la funcion.
      */
-    public static void Play(string soundName, float volume, float pitchMin = 0.9f, float pitchMax = 1.1f)
+    public static void Play(string soundName, float pitchMin = 0.9f, float pitchMax = 1.1f, float minDistance = 1f, float maxDistance = 20f, Vector3? position = null)
     {
         if (instance == null)
         {
@@ -48,10 +49,29 @@ public class GameSounds : MonoBehaviour
 
         if (sound != null)
         {
-            instance.audioSource.clip = sound.clip;
-            instance.audioSource.volume = volume;
-            instance.audioSource.pitch = Random.Range(pitchMin, pitchMax);
-            instance.audioSource.Play();
+            // Crear un nuevo GameObject para el AudioSource
+            GameObject soundObject = new GameObject("Sound_" + soundName);
+            AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+
+            // Configurar la posición del sonido
+            soundObject.transform.position = position ?? instance.transform.position;
+
+            audioSource.clip = sound.clip;
+            audioSource.volume = sound.volume;
+            audioSource.pitch = Random.Range(pitchMin, pitchMax);
+            audioSource.spatialBlend = sound.spatialBlend;
+            audioSource.minDistance = minDistance;
+            audioSource.maxDistance = maxDistance;
+            audioSource.loop = sound.loop;
+
+            // Configurar y reproducir el sonido
+            audioSource.Play();
+
+            // Destruir el GameObject cuando el audio termine (solo si no está en loop)
+            if (!sound.loop)
+            {
+                Destroy(soundObject, sound.clip.length / audioSource.pitch);
+            }
         }
         else
         {

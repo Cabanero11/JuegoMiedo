@@ -12,6 +12,7 @@ namespace PSX
         [Range(0,100)]
         public FloatParameter fogDistance = new FloatParameter(10.0f);
         public ColorParameter fogColor = new ColorParameter(Color.white);
+        public ColorParameter ambientColor = new ColorParameter(new Color(0.1f, 0.1f, 0.1f, 0.1f));
         
         [Range(0,100)]
         public FloatParameter fogNear = new FloatParameter(1.0f);

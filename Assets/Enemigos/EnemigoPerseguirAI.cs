@@ -83,7 +83,7 @@ public class EnemigoPerseguirAI : MonoBehaviour
     private void Patrol()
     {
         // Lógica de patrullaje (agrega waypoints si es necesario)
-        GameSounds.Play("EnemigoPatrol", 0.3f);
+        GameSounds.Play("EnemigoPatrol", 0.9f, 1.1f, 1f, 20f, transform.position);
         navMeshAgent.speed = originalSpeed * 0.5f; // Mover más lento
     }
 
@@ -131,7 +131,7 @@ public class EnemigoPerseguirAI : MonoBehaviour
     {
         // Lógica de ataque
         Debug.Log("GRYAAHHG Te ataquie >:U ");
-        GameSounds.Play("EnemigoAtaque", 0.5f);
+        GameSounds.Play("EnemigoAtaque", 0.9f, 1.1f, 1f, 20f, transform.position);
 
         currentState = State.Patroling; // Volver a patrullaje después de atacar (ajustar según la lógica)
     }

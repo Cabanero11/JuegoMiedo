@@ -81,6 +81,7 @@ Material:
     - Boolean_85059BBE: 1
     - Boolean_8BBF99CD: 1
     - Boolean_D258FF8E: 0
+    - DeformMagnitude: 0
     - Vector1_21C41D02: 1
     - Vector1_2CDA09C2: 0.5
     - Vector1_6F288C5B: 0.5

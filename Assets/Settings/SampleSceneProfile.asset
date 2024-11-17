@@ -59,10 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.15
 --- !u!114 &-7011558710299706105
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -91,7 +91,7 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &-5987805153770498665
+--- !u!114 &-3422767339995092493
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,19 +100,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35a1bd58dd7548198609eabd8ae2bb7d, type: 3}
-  m_Name: Pixelation
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 0
-  widthPixelation:
+  active: 1
+  lift:
     m_OverrideState: 1
-    m_Value: 512
-  heightPixelation:
+    m_Value: {x: 0.9895328, y: 1, z: 0.92339706, w: 0}
+  gamma:
     m_OverrideState: 1
-    m_Value: 512
-  colorPrecision:
+    m_Value: {x: 0.97555614, y: 1, z: 0.93294376, w: -0.08898777}
+  gain:
     m_OverrideState: 1
-    m_Value: 32
+    m_Value: {x: 0.9525841, y: 1, z: 0.9708632, w: 0.022246938}
 --- !u!114 &-2689781847663377591
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -320,9 +320,10 @@ MonoBehaviour:
   - {fileID: -7011558710299706105}
   - {fileID: 2837885393286970751}
   - {fileID: -2689781847663377591}
-  - {fileID: -5987805153770498665}
   - {fileID: -7032355566555436573}
-  - {fileID: 7677502696989243273}
+  - {fileID: 2465813862116763690}
+  - {fileID: -3422767339995092493}
+  - {fileID: 6179348691184922954}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -363,6 +364,28 @@ MonoBehaviour:
   maxNits:
     m_OverrideState: 0
     m_Value: 1000
+--- !u!114 &2465813862116763690
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a1bd58dd7548198609eabd8ae2bb7d, type: 3}
+  m_Name: Pixelation
+  m_EditorClassIdentifier: 
+  active: 1
+  widthPixelation:
+    m_OverrideState: 1
+    m_Value: 318
+  heightPixelation:
+    m_OverrideState: 1
+    m_Value: 318
+  colorPrecision:
+    m_OverrideState: 1
+    m_Value: 32
 --- !u!114 &2837885393286970751
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -409,7 +432,7 @@ MonoBehaviour:
   bladeRotation:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &7677502696989243273
+--- !u!114 &6179348691184922954
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -424,13 +447,13 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.4
   response:
-    m_OverrideState: 0
-    m_Value: 0.8
+    m_OverrideState: 1
+    m_Value: 0
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
