@@ -46,6 +46,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Key
-    clip: {fileID: 8300000, guid: a5df7a34c68808e4c87e1c1fd543d676, type: 3}
+    clip: {fileID: 8300000, guid: 2f5e49c49b84ed24ca791a9b9b7fbbec, type: 3}
+    volume: 1
+    spatialBlend: 1
+    loop: 0
   - name: Puerta
-    clip: {fileID: 8300000, guid: c4daa6fd2e404b44f81dd95ec0d65dbb, type: 3}
+    clip: {fileID: 8300000, guid: cca6b2f7adb573a4fb9ea41c383a04d7, type: 3}
+    volume: 1
+    spatialBlend: 1
+    loop: 0
+  - name: EnemigoPatrol
+    clip: {fileID: 8300000, guid: fb38cda867d1bc646aece5952979f5b5, type: 3}
+    volume: 0
+    spatialBlend: 0
+    loop: 0
+  - name: EnemigoCarga
+    clip: {fileID: 8300000, guid: 6db34ce19f01595449e57cd4b1e5ee77, type: 3}
+    volume: 0
+    spatialBlend: 0
+    loop: 0
+  - name: EnemigoAtaque
+    clip: {fileID: 8300000, guid: ca87240d09a527845b8dba7e49e7ec58, type: 3}
+    volume: 0
+    spatialBlend: 0
+    loop: 0

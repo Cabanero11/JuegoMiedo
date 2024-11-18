@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DialogoPrueba
   m_EditorClassIdentifier: 
   lineasDeDialogo:
-  - "Ey ey ey, aqui el rich\t"
-  - Ennnnnnnn, MINECRAFT
-  - Ohhh ohhhh, skibidi, no digas mas pomni chikibai oh
+  - Ey ey ey, aqui el <color=blue>rich</color>
+  - Ennnn , <color=red>MINECRAFT</color>
+  - "Ohhh ohhhh, Skibidi, no digas mas <i>pomni</i> <b>chikibai</b> oh yeah. Si que
+    \xF1am"

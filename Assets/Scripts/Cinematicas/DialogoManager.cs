@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 public class ControladorDeDialogo : MonoBehaviour
 {
@@ -17,8 +18,11 @@ public class ControladorDeDialogo : MonoBehaviour
     public TextMeshProUGUI textoDialogo;
     [Range(0f, 0.5f)]
     public float velocidadDeCaracteres = 0.05f;
-    [Range(0f, 0.5f)]
+    [Range(0f, 1f)]
     public float tiempoEsperaTrasAcabarDialogo = 1f;
+    public float velocidadEfectoOla = 3f;
+    public float amplitudEfectoOnda = 0.5f;
+
 
     public bool dialogoActivo = false;
 
@@ -46,31 +50,75 @@ public class ControladorDeDialogo : MonoBehaviour
         // Borramos cualquier texto anterior
         textoDialogo.text = "";
 
-        // Recorremos todas las líneas del diálogo
-        foreach (char letra in dialogoActual.lineasDeDialogo[indiceLinea])
+        // Obtenemos la línea del diálogo con las etiquetas HTML
+        string linea = dialogoActual.lineasDeDialogo[indiceLinea];
+        int longitudLinea = linea.Length;
+        int i = 0;
+
+        // Variables para el efecto de onda
+        bool efectoOnda = false;
+        List<int> indicesOnda = new List<int>();
+
+        while (i < longitudLinea)
         {
-            textoDialogo.text += letra;
-            yield return new WaitForSeconds(velocidadDeCaracteres);
+            // Si encuentra una apertura de etiqueta '<'
+            if (linea[i] == '<')
+            {
+                // Busca el cierre de la etiqueta '>'
+                int cierreEtiqueta = linea.IndexOf('>', i);
+                if (cierreEtiqueta != -1)
+                {
+                    // Agrega toda la etiqueta al texto de golpe
+                    textoDialogo.text += linea.Substring(i, (cierreEtiqueta - i) + 1);
+                    i = cierreEtiqueta + 1; // Avanza el índice al final de la etiqueta
+                }
+                else
+                {
+                    // Si no hay cierre, simplemente se agrega el caracter y se avanza
+                    textoDialogo.text += linea[i];
+                    i++;
+                }
+            }
+            else
+            {
+                // Si es un carácter normal, se agrega de uno en uno
+                textoDialogo.text += linea[i];
+
+                // Si el efecto está activo, agregar el índice de la letra
+                if (efectoOnda)
+                {
+                    indicesOnda.Add(textoDialogo.text.Length - 1);
+                }
+
+                i++;
+                yield return new WaitForSeconds(velocidadDeCaracteres);
+            }
         }
 
-        // Esperamos 1s antes del siguiente dialogo
+
+        // Esperamos antes de continuar con la siguiente línea
         yield return new WaitForSeconds(tiempoEsperaTrasAcabarDialogo);
 
-        // Pasar a la siguiente linea
+        // Detener la animación de ola al terminar la línea
+        dialogoActivo = false;
+
+        // Pasar a la siguiente línea
         indiceLinea++;
 
-        // Hasta que quede texto 
         if (indiceLinea < dialogoActual.lineasDeDialogo.Length)
         {
             StartCoroutine(MostrarDialogo());
         }
-        else // Acabio el dialogo
+        else
         {
-            dialogoActivo = false;
             textBox.SetActive(false);
             Debug.Log("Fin del diálogo");
         }
     }
+
+    
+
+
 
 
 }

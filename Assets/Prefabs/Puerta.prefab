@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1202709026303571785}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6256906616770865657
 BoxCollider:
@@ -131,7 +131,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b745cd7b9745e4ab560ac8e9f4dff2, type: 2}
+  - {fileID: 2100000, guid: 77c3f5b3faccd234185014f527b2d474, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,7 +272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b745cd7b9745e4ab560ac8e9f4dff2, type: 2}
+  - {fileID: 2100000, guid: 3c95e66f474e36945b6783eeb136a9da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -355,7 +355,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b745cd7b9745e4ab560ac8e9f4dff2, type: 2}
+  - {fileID: 2100000, guid: 3c95e66f474e36945b6783eeb136a9da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
