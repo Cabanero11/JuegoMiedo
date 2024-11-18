@@ -22,7 +22,7 @@ public class PuertaMover : MonoBehaviour
 
         if (rotator == null)
         {
-            Debug.LogError("No se encontró el objeto 'Rotator'.");
+            Debug.LogError("No se encontro el objeto 'Rotator'.");
         }
 
     }
@@ -32,7 +32,7 @@ public class PuertaMover : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorDentro = true;
-            Debug.Log("Jugador dentro del área de interacción de la puerta.");
+            Debug.Log("Jugador dentro de la puerta (lenny face) ");
         }
     }
 
@@ -41,7 +41,7 @@ public class PuertaMover : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorDentro = false;
-            Debug.Log("Jugador salió del área de interacción de la puerta.");
+            Debug.Log("Jugador se fue de la puerta.");
         }
     }
 
@@ -62,7 +62,7 @@ public class PuertaMover : MonoBehaviour
             }
             else
             {
-                Debug.Log("No tienes la llave de la puerta.");
+                Debug.Log("No tienes la llave OMG BRUH");
             }
         }
 

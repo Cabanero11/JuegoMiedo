@@ -4,6 +4,7 @@ using System.Collections;
 using TMPro;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(AudioSource))]
 public class ControladorDeDialogo : MonoBehaviour
 {
     /**
@@ -13,15 +14,20 @@ public class ControladorDeDialogo : MonoBehaviour
      * 3. Profit 
      */
 
-
+    [Header("Referencias")]
     public GameObject textBox; 
     public TextMeshProUGUI textoDialogo;
+    [Header("Variables de dialogos")]
     [Range(0f, 0.5f)]
     public float velocidadDeCaracteres = 0.05f;
-    [Range(0f, 1f)]
     public float tiempoEsperaTrasAcabarDialogo = 1f;
-    public float velocidadEfectoOla = 3f;
-    public float amplitudEfectoOnda = 0.5f;
+
+    [Header("Sonidos")]
+    // Añadir la lista de sonidos
+    public AudioClip[] sonidosDeEscritura; 
+    private AudioSource audioSource;
+    [SerializeField] private float volumenSonidoEscritura = 0.5f;
+    [SerializeField] private int caracteresPorSonido = 5; // Para que no suenen cada tanto xd
 
 
     public bool dialogoActivo = false;
@@ -29,10 +35,21 @@ public class ControladorDeDialogo : MonoBehaviour
     private int indiceLinea = 0;
     private Dialogo dialogoActual;
 
+
+
     void Start()
     {
         textoDialogo.text = "";
         textBox.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
+
+        if(audioSource == null )
+        {
+            Debug.LogWarning("NO AUDIO SOURCE EN DIALOGO MANAGER.");
+        }
+
+        audioSource.volume = volumenSonidoEscritura;
     }
 
 
@@ -53,11 +70,7 @@ public class ControladorDeDialogo : MonoBehaviour
         // Obtenemos la línea del diálogo con las etiquetas HTML
         string linea = dialogoActual.lineasDeDialogo[indiceLinea];
         int longitudLinea = linea.Length;
-        int i = 0;
-
-        // Variables para el efecto de onda
-        bool efectoOnda = false;
-        List<int> indicesOnda = new List<int>();
+        int i = 0, contadorDeCaracteres = 0;
 
         while (i < longitudLinea)
         {
@@ -81,13 +94,20 @@ public class ControladorDeDialogo : MonoBehaviour
             }
             else
             {
-                // Si es un carácter normal, se agrega de uno en uno
+                // Si es un caracter normal, se agrega de uno en uno
                 textoDialogo.text += linea[i];
 
-                // Si el efecto está activo, agregar el índice de la letra
-                if (efectoOnda)
+                // Reproducir el sonido cada X caracteres
+                contadorDeCaracteres++;
+
+                if (contadorDeCaracteres >= caracteresPorSonido)
                 {
-                    indicesOnda.Add(textoDialogo.text.Length - 1);
+                    if (sonidosDeEscritura.Length > 0)
+                    {
+                        audioSource.PlayOneShot(sonidosDeEscritura[i % sonidosDeEscritura.Length]);
+                    }
+
+                    contadorDeCaracteres = 0; 
                 }
 
                 i++;
