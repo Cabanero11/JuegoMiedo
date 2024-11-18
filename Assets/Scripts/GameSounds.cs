@@ -11,7 +11,7 @@ public class GameSounds : MonoBehaviour
         public string name;
         public AudioClip clip;
         [Range(0f, 1f)] public float volume = 1f;
-        [Range(0f, 1f)] public float spatialBlend = 1f; // 0 = 2D, 1 = 3D
+        [Range(0f, 1f)] public float spatialBlend = 1f; 
         public bool loop = false;
     }
 
@@ -53,9 +53,10 @@ public class GameSounds : MonoBehaviour
             GameObject soundObject = new GameObject("Sound_" + soundName);
             AudioSource audioSource = soundObject.AddComponent<AudioSource>();
 
-            // Configurar la posición del sonido
+            // Configuracion de la posicion del sonido
             soundObject.transform.position = position ?? instance.transform.position;
 
+            // Variables del sonido
             audioSource.clip = sound.clip;
             audioSource.volume = sound.volume;
             audioSource.pitch = Random.Range(pitchMin, pitchMax);
@@ -64,10 +65,10 @@ public class GameSounds : MonoBehaviour
             audioSource.maxDistance = maxDistance;
             audioSource.loop = sound.loop;
 
-            // Configurar y reproducir el sonido
+
             audioSource.Play();
 
-            // Destruir el GameObject cuando el audio termine (solo si no está en loop)
+            // Destruir el GameObject cuando el audio termine
             if (!sound.loop)
             {
                 Destroy(soundObject, sound.clip.length / audioSource.pitch);
