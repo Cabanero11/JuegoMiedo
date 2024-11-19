@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using TMPro;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
 public class ControladorDeDialogo : MonoBehaviour
@@ -17,6 +15,7 @@ public class ControladorDeDialogo : MonoBehaviour
     [Header("Referencias")]
     public GameObject textBox; 
     public TextMeshProUGUI textoDialogo;
+    public TextMeshProUGUI textNombreNPC;
     [Header("Variables de dialogos")]
     [Range(0f, 0.5f)]
     public float velocidadDeCaracteres = 0.05f;
@@ -44,7 +43,7 @@ public class ControladorDeDialogo : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        if(audioSource == null )
+        if(audioSource == null)
         {
             Debug.LogWarning("NO AUDIO SOURCE EN DIALOGO MANAGER.");
         }
@@ -66,9 +65,15 @@ public class ControladorDeDialogo : MonoBehaviour
     {
         // Borramos cualquier texto anterior
         textoDialogo.text = "";
+        textNombreNPC.text = "";
 
-        // Obtenemos la línea del diálogo con las etiquetas HTML
-        string linea = dialogoActual.lineasDeDialogo[indiceLinea];
+        // Obtenemos la líneaDialogo del diálogo con las etiquetas HTML
+        var lineaDialogo = dialogoActual.lineasDeDialogo[indiceLinea];
+
+        // Separar el lineaDialogo en sus 2 datos
+        string linea = lineaDialogo.textoLineaDialogo;
+        textNombreNPC.text = lineaDialogo.nombreNPC;
+
         int longitudLinea = linea.Length;
         int i = 0, contadorDeCaracteres = 0;
 
@@ -125,7 +130,9 @@ public class ControladorDeDialogo : MonoBehaviour
         // Pasar a la siguiente línea
         indiceLinea++;
 
-        if (indiceLinea < dialogoActual.lineasDeDialogo.Length)
+        bool aunQuedaTexto = indiceLinea < dialogoActual.lineasDeDialogo.Length;
+
+        if (aunQuedaTexto)
         {
             StartCoroutine(MostrarDialogo());
         }
@@ -135,10 +142,5 @@ public class ControladorDeDialogo : MonoBehaviour
             Debug.Log("Fin del diálogo");
         }
     }
-
-    
-
-
-
 
 }

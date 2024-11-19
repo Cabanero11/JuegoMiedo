@@ -3,8 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NuevoDialogo", menuName = "SistemaDeDialogos/Dialogo", order = 1)]
 public class Dialogo : ScriptableObject
 {
-    [TextArea(3, 10)] // Para que el campo de texto sea más grande en el Inspector
-    public string[] lineasDeDialogo;
+    [System.Serializable]
+    public struct LineasDeDialogo
+    {
+        [TextArea(4, 10)] // Para que el campo de texto sea más grande en el Inspector
+        public string textoLineaDialogo;
+        public string nombreNPC;
+    }
+
+    public LineasDeDialogo[] lineasDeDialogo;
 
     /** EJEMPLOS DE USO PARA ETIQUETAS HTML
      * <color=red> Este texto es rojo </color>

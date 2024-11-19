@@ -3,10 +3,9 @@ using UnityEngine.Playables; // Importante para trabajar con Timeline
 
 public class IniciarCinematica : MonoBehaviour
 {
-
     private ControladorDeDialogo controladorDeDialogo;
 
-    public Dialogo[] dialogos;
+    public Dialogo dialogo;
 
 
     private void Awake()
@@ -23,11 +22,7 @@ public class IniciarCinematica : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            foreach (var dialogo in dialogos)
-            {
-                controladorDeDialogo.IniciarDialogo(dialogo);
-            }
-            
+            controladorDeDialogo.IniciarDialogo(dialogo);
         }
     }
 }

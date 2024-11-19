@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01290cb7726c8a64da9c058e286a0329, type: 3}
-  m_Name: DialogoPrueba
+  m_Name: SalirDeCasa
   m_EditorClassIdentifier: 
   lineasDeDialogo:
-  - Ey ey ey, aqui el <color=blue>rich</color>
-  - Ennnn , <color=red>MINECRAFT</color>
-  - "Ohhh ohhhh, Skibidi, no digas mas <i>pomni</i> <b>chikibai</b> oh yeah. Si que
-    \xF1am"
+  - textoLineaDialogo: "\xA1 Ey, si pero eres tu Miguel !"
+    nombreNPC: Cubo Generico
+  - textoLineaDialogo: Ponme, el vino especial del <color=yellow>Bar **** ,</color>
+      que hoy ando seco.
+    nombreNPC: Er Miguel
