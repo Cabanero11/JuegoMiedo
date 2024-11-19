@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         {
             isDying = true;
 
-            PlayerAudioManager.instance.PlayDeathSound();
+            //PlayerAudioManager.instance.PlayDeathSound();
 
             //GameManager.Instance.LevelManager.spawner.Spawn(Spawner.types.player);
             //GetComponent<Rigidbody>().velocity = Vector3.zero;

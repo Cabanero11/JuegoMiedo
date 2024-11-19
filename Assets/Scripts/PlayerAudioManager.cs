@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerAudioManager : MonoBehaviour
@@ -6,34 +9,25 @@ public class PlayerAudioManager : MonoBehaviour
     public static PlayerAudioManager instance;
 
     [Header("Sonidos del Jugador")]
-    public AudioClip jumpSound;
-    public AudioClip wallRunSound;
-    public AudioClip deathSound;
-    public AudioClip hookSound;
-    public AudioClip dashSound;
-    public AudioClip muelleSound;
-    public AudioClip winLevelSound;
+    public float tiempoEsperaEntrePasos = 1f;
+    public AudioClip[] andarSonidosGround;
+    public AudioClip[] andarSonidosWater;
+
+    public enum TerrainType { Ground, Water }
+
+    private int sonidoActualAndar = 0;
+    private bool puedeReproducirSonido = true; 
 
 
     [Header("Música de Fondo")]
     public AudioClip level1Music;
     public AudioClip level2Music;
-    public AudioClip level3Music;
-    public AudioClip movimientoMusic;
-    public AudioClip menuMusic;
-    public AudioClip levelAntonio;
-    public AudioClip NivelPako;
 
 
     [Header("Audio Sources")]
     public AudioSource audioSource;         // El sonido que se usara
     public AudioSource audioSourceMusic;    // Este playea la musica
     private AudioSource currentSoundSource; // Almacena la referencia al audioSource del sonido actualmente en reproducción
-
-    [Header("Aceleración de la Música")]
-    public float velocidadNormal = 1.0f;
-    public float velocidadAcelerada = 1.07f;
-    public float velocidadMaxima = 1.14f;
 
 
 
@@ -54,48 +48,44 @@ public class PlayerAudioManager : MonoBehaviour
     // PLAY SOUND
     // BASICAMENTE CREAR UNA FUNCION POR SONIDO Y LLAMARLO DONDE SEA CON -> PlayerAudioManager.instance.PlayInserteNombre();
 
-    public void PlayJumpSound()
+    public void PlaySonidosAndar(TerrainType terrain)
     {
-        PlaySoundPitcheado(jumpSound, 0.4f, 0.8f, 1.2f);
+        if (puedeReproducirSonido)
+        {
+            AudioClip[] andarSonidoSeleccionado = null;
+
+            // Determinar qué sonidos usar basados en el terreno
+            if (terrain == TerrainType.Ground)
+            {
+                andarSonidoSeleccionado = andarSonidosGround;
+            }
+            else if (terrain == TerrainType.Water)
+            {
+                andarSonidoSeleccionado = andarSonidosWater;
+            }
+
+            if( andarSonidoSeleccionado != null )
+            {
+                StartCoroutine(ReproducirSonidoConEspera(andarSonidoSeleccionado, tiempoEsperaEntrePasos));
+            }
+
+        }
     }
 
-    public void PlayDeathSound()
+    private IEnumerator ReproducirSonidoConEspera(AudioClip[] andarSonidos,  float tiempoEspera)
     {
-        PlaySoundPitcheado(deathSound, 0.5f, 0.8f, 1.2f);
+        puedeReproducirSonido = false; // Bloquea la reproducción hasta que termine la espera
+        
+
+        PlaySoundPitcheado(andarSonidos[sonidoActualAndar], 0.05f, 0.8f, 1.1f);
+
+        sonidoActualAndar = (sonidoActualAndar + 1) % andarSonidos.Length;
+
+        // Esperar X segundos, antes de otro
+        yield return new WaitForSeconds(tiempoEspera);
+
+        puedeReproducirSonido = true; 
     }
-
-    public void PlayDashSound()
-    {
-        PlaySound(dashSound, 0.5f);
-    }
-
-    public void PlayHookSound()
-    {
-        PlaySoundPitcheado(hookSound, 0.3f, 0.6f, 1f);
-    }
-
-    public void PlayMuelleSound() // boing !!!
-    {
-        PlaySoundPitcheado(muelleSound, 0.5f, 0.8f, 1f);
-    }
-
-
-    public void PlayWallRunSound()
-    {
-        PlaySoundLooped(wallRunSound, 0.8f);
-    }
-
-    // Para el WallRun, que sonaria todo el rato si sigue en la pared, y si cae se acaba :(
-    public void StopWallRunSound()
-    {
-        StopWallRunLoopedSound();
-    }
-
-    public void PlayWinLevel()
-    {
-        PlaySound(winLevelSound, 0.6f);
-    }
-
 
 
 
@@ -173,16 +163,6 @@ public class PlayerAudioManager : MonoBehaviour
         }
     }
 
-    // Detener el sonido en bucle específico de wallRun
-    private void StopWallRunLoopedSound()
-    {
-        if (currentSoundSource != null && currentSoundSource.clip == wallRunSound)
-        {
-            currentSoundSource.loop = false;
-            StopLoopedSound(); // Detener el sonido en bucle
-        }
-    }
-
 
 
     // MUSICA UGHHHH
@@ -232,16 +212,6 @@ public class PlayerAudioManager : MonoBehaviour
                 return level1Music;
             case 2:
                 return level2Music;
-            case 3:
-                return level3Music;
-            case 4:
-                return movimientoMusic;
-            case 5:
-                return menuMusic;
-            case 6:
-                return levelAntonio;
-            case 7:
-                return NivelPako;
             default:
                 return null;
         }

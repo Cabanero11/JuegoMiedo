@@ -1,4 +1,6 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using static PlayerAudioManager;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag = 2f;
     public Transform playerObj;
 
+            
 
     [Header("Salto")]
     public bool activarSalto = false;
@@ -33,9 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Check")]
     public float playerHeight = 2f;
-    public LayerMask whatIsGround;
     public bool grounded;
     public float extraRayDistance = 0.2f;
+    [Space]
+    [SerializeField]
+    private TerrainType currentStandingTerrain;
+    public LayerMask whatIsGround;
+    public LayerMask waterLayer;
 
     [Header("Rampa")]
     public float maxSlopeAngle = 60f;
@@ -157,6 +164,12 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         ChangeTransform();
+
+        // Si se mueve, sonido de Andar
+        if(horizontalInput != 0 || verticalInput != 0)
+        {
+            PlayerAudioManager.instance.PlaySonidosAndar(currentStandingTerrain);
+        }
 
         if (Input.GetKey(jumpKey) && grounded)
         {
@@ -311,10 +324,36 @@ public class PlayerMovement : MonoBehaviour
     void DoAllRaycasts()
     {
         float dist = playerHeight * 0.5f + extraRayDistance;
-        cieling = Physics.Raycast(transform.position, Vector3.up, dist, whatIsGround);
-        grounded = Physics.Raycast(transform.position, Vector3.down, dist, whatIsGround);
-    }
 
+        // Verificar si hay techo
+        cieling = Physics.Raycast(transform.position, Vector3.up, dist, whatIsGround);
+
+        // Verificar si está en el suelo y obtener información del terreno
+        grounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, dist, whatIsGround);
+
+        // Si está en el suelo, identificar el terreno en base a su capa
+        if (grounded)
+        {
+            int hitLayer = hit.collider.gameObject.layer; // Obtener la capa del objeto impactado
+
+            //Debug.Log($"Layer detectado: {hitLayer}");
+
+            // Comprobar si pertenece al Layer de agua
+            if (waterLayer == (waterLayer | (1 << hitLayer)))
+            {
+                currentStandingTerrain = TerrainType.Water;
+            }
+            // Comprobar si pertenece al Layer de tierra
+            else if (whatIsGround == (whatIsGround | (1 << hitLayer)))
+            {
+                currentStandingTerrain = TerrainType.Ground;
+            }
+            else
+            {
+                Debug.LogWarning("El layer detectado no está asignado en los LayerMask.");
+            }
+        }
+    }
 
     // ############################################
     // #############      JUMP     ################
@@ -326,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
         if(activarSalto == true)
         {
             // Efecto de sonido del salto
-            PlayerAudioManager.instance.PlayJumpSound();
+            //PlayerAudioManager.instance.PlayJumpSound();
             exitingSlope = true;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
