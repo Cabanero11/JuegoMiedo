@@ -106,7 +106,7 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.9895328, y: 1, z: 0.92339706, w: 0}
+    m_Value: {x: 1, y: 0.9593249, z: 0.89084476, w: 0}
   gamma:
     m_OverrideState: 1
     m_Value: {x: 0.97555614, y: 1, z: 0.93294376, w: -0.08898777}
@@ -379,10 +379,10 @@ MonoBehaviour:
   active: 1
   widthPixelation:
     m_OverrideState: 1
-    m_Value: 318
+    m_Value: 356
   heightPixelation:
     m_OverrideState: 1
-    m_Value: 318
+    m_Value: 356
   colorPrecision:
     m_OverrideState: 1
     m_Value: 32

@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyIDRequerida: llave1
   velocidadApertura: 30
+  dialogoPuerta: {fileID: 11400000, guid: 6c4f4d27fb09cac4aa97874f024fd00f, type: 2}
   maxAnguloApertura: -100
 --- !u!1 &4613553727553407733
 GameObject:

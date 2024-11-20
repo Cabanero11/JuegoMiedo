@@ -13,6 +13,9 @@ public class PlayerAudioManager : MonoBehaviour
     public AudioClip[] andarSonidosGround;
     public AudioClip[] andarSonidosWater;
 
+
+    private KeyCode sprintKey = KeyCode.LeftShift;
+
     public enum TerrainType { Ground, Water }
 
     private int sonidoActualAndar = 0;
@@ -45,6 +48,17 @@ public class PlayerAudioManager : MonoBehaviour
         audioSource = GetComponents<AudioSource>()[0];
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(sprintKey))
+        {
+            tiempoEsperaEntrePasos = 0.5f;
+        } else
+        {
+            tiempoEsperaEntrePasos = 1f;
+        }
+    }
+
     // PLAY SOUND
     // BASICAMENTE CREAR UNA FUNCION POR SONIDO Y LLAMARLO DONDE SEA CON -> PlayerAudioManager.instance.PlayInserteNombre();
 
@@ -58,6 +72,8 @@ public class PlayerAudioManager : MonoBehaviour
             if (terrain == TerrainType.Ground)
             {
                 andarSonidoSeleccionado = andarSonidosGround;
+
+                
             }
             else if (terrain == TerrainType.Water)
             {

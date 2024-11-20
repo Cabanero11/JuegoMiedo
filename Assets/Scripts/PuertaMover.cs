@@ -5,6 +5,12 @@ public class PuertaMover : MonoBehaviour
     [Header("Configuración de Interacción")]
     public string keyIDRequerida;
     public float velocidadApertura = 30f; // Velocidad de incremento del ángulo
+
+    [Space]
+    [Header("`Dialogo de puerta")]
+    private ControladorDeDialogo controladorDeDialogo;
+
+    public Dialogo dialogoPuerta;
     [Header("Angulo de Y")]
     public float maxAnguloApertura = 100f; // Se puede configurar en el Inspector
 
@@ -13,6 +19,16 @@ public class PuertaMover : MonoBehaviour
     private Transform rotator;
 
     GameManager gameManager;
+
+    private void Awake()
+    {
+        controladorDeDialogo = GameObject.FindGameObjectWithTag("DialogoManager").GetComponent<ControladorDeDialogo>();
+
+        if (controladorDeDialogo == null)
+        {
+            Debug.LogWarning("NO controladorDeDialogo");
+        }
+    }
 
     private void Start()
     {
@@ -33,8 +49,10 @@ public class PuertaMover : MonoBehaviour
         {
             jugadorDentro = true;
             Debug.Log("Jugador dentro de la puerta (lenny face) ");
+
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -62,6 +80,7 @@ public class PuertaMover : MonoBehaviour
             }
             else
             {
+                controladorDeDialogo.IniciarDialogo(dialogoPuerta);
                 Debug.Log("No tienes la llave OMG BRUH");
             }
         }
