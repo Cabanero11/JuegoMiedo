@@ -10,11 +10,12 @@ public class MainMenuYOpciones : MonoBehaviour
     public GameObject mainMenuPanel;    // Panel del menú principal
     public GameObject optionsPanel;     // Panel de opciones
 
-    [Header("Opciones")]
+    [Header("Nivel a cargar")]
     public string nivel1;
 
     [Header("Opciones")]
-    public Slider volumeSlider;         // Slider para el volumen
+    public Slider volumeSlider;             // Slider para el volumen
+    public TextMeshProUGUI volumenTexto;
     public TMP_Dropdown resolutionDropdown; // Dropdown para las resoluciones
 
     private Resolution[] resolutions;
@@ -77,13 +78,22 @@ public class MainMenuYOpciones : MonoBehaviour
         Application.Quit();
     }
 
-    
+
 
     // Función para establecer el volumen
     public void SetVolume(float volume)
     {
+        // Convertir el volumen de 0.0-1.0 (Slider) a 0-10
+        float mappedVolume = volume * 10f; // Escala el rango a 0-10
+
+        // Ajustar el volumen del AudioListener (permanece en el rango 0.0-1.0)
         AudioListener.volume = volume;
-        PlayerPrefs.SetFloat("Volume", volume);
+
+        // Actualizar el texto del volumen como un número entero
+        volumenTexto.text = Mathf.RoundToInt(mappedVolume).ToString();
+
+        // Guardar el volumen en PlayerPrefs (en el rango 0-10)
+        PlayerPrefs.SetInt("Volume", Mathf.RoundToInt(mappedVolume));
     }
 
     // Función para establecer la resolución
