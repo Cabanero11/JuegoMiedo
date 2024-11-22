@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraBobbing : MonoBehaviour
 {
@@ -17,42 +17,52 @@ public class CameraBobbing : MonoBehaviour
 
     void Update()
     {
-        if(!PauseMenuScript.isGamePausedStatic)
+
+        if (PauseMenuScript.isGamePausedStatic)
         {
-            float waveslice = 0.0f;
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            //Debug.Log("Parando camara bobbing");
+            return;
+        }
 
-            if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
-            {
-                timer = 0.0f;
-            }
-            else
-            {
-                waveslice = Mathf.Sin(timer);
-                timer += bobbingSpeed;
-                if (timer > Mathf.PI * 2)
-                {
-                    timer -= Mathf.PI * 2;
-                }
-            }
+        EfectoBobbingCamara();
 
-            if (waveslice != 0)
+    }
+
+
+    private void EfectoBobbingCamara()
+    {
+        float waveslice = 0.0f;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
+        {
+            timer = 0.0f;
+        }
+        else
+        {
+            waveslice = Mathf.Sin(timer);
+            timer += bobbingSpeed;
+            if (timer > Mathf.PI * 2)
             {
-                float translateChange = waveslice * bobbingAmount;
-                float totalAxes = Mathf.Clamp(Mathf.Abs(horizontal) + Mathf.Abs(vertical), 0.0f, 1.0f);
-                translateChange *= totalAxes;
-                Vector3 newPos = transform.localPosition;
-                newPos.y = defaultYPos + translateChange;
-                transform.localPosition = newPos;
-            }
-            else
-            {
-                Vector3 newPos = transform.localPosition;
-                newPos.y = defaultYPos;
-                transform.localPosition = newPos;
+                timer -= Mathf.PI * 2;
             }
         }
-        
+
+        if (waveslice != 0)
+        {
+            float translateChange = waveslice * bobbingAmount;
+            float totalAxes = Mathf.Clamp(Mathf.Abs(horizontal) + Mathf.Abs(vertical), 0.0f, 1.0f);
+            translateChange *= totalAxes;
+            Vector3 newPos = transform.localPosition;
+            newPos.y = defaultYPos + translateChange;
+            transform.localPosition = newPos;
+        }
+        else
+        {
+            Vector3 newPos = transform.localPosition;
+            newPos.y = defaultYPos;
+            transform.localPosition = newPos;
+        }
     }
 }

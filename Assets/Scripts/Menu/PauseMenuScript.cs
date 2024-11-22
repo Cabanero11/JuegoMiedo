@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 
 public class PauseMenuScript : MonoBehaviour
@@ -17,6 +18,7 @@ public class PauseMenuScript : MonoBehaviour
     [Header("Opciones de Audio")]
     public Slider volumeSlider; // Slider para el volumen
     public TextMeshProUGUI volumenTexto;
+    private float savedVolume;
 
 
     private void Awake()
@@ -29,7 +31,7 @@ public class PauseMenuScript : MonoBehaviour
         // Configurar el slider de volumen
         if (volumeSlider != null)
         {
-            float savedVolume = PlayerPrefs.GetFloat("Volume", 1f); // Valor por defecto: 1 (máximo)
+            savedVolume = PlayerPrefs.GetFloat("Volume", 1f); // Valor por defecto: 1 (máximo)
             volumeSlider.value = savedVolume;
             AudioListener.volume = savedVolume;
 
@@ -69,6 +71,8 @@ public class PauseMenuScript : MonoBehaviour
 
     public void ContinueGame()
     {
+        isGamePausedStatic = false;
+
         reticula.SetActive(true);
         //pauseMenuUI.SetActive(false);
         pauseMenuUI.SetActive(false);
@@ -83,8 +87,14 @@ public class PauseMenuScript : MonoBehaviour
 
     public void PauseGame()
     {
+        isGamePausedStatic = true;
+
         reticula.SetActive(false);
         pauseMenuUI.SetActive(true);
+
+        // Al pausar por 1ª vez sale 1f y no el valor actual del volumen
+        float mappedVolume = savedVolume * 10f; 
+        volumenTexto.text = Mathf.RoundToInt(mappedVolume).ToString();
 
         //pauseMenuUI.SetActive(true);
 
