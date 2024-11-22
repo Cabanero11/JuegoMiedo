@@ -10,12 +10,11 @@ public class CogerLlave : MonoBehaviour
     public GameObject particulaHalo;
     [Range(0f, 1f)]
     public float volume;
-    public float alturaAbajoHalo = 1f;
 
     private void Awake()
     {
         // Poner el halo en la llave
-        particulaHalo.transform.position = new Vector3(transform.position.x, transform.position.y - alturaAbajoHalo, transform.position.z);
+        particulaHalo.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     private void OnTriggerEnter(Collider other)

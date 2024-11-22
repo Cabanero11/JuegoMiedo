@@ -56,13 +56,22 @@ public class ControladorDeDialogo : MonoBehaviour
     {
         dialogoActual = nuevoDialogo;
         indiceLinea = 0;
-        dialogoActivo = true;
         textBox.SetActive(true);
-        StartCoroutine(MostrarDialogo());
+
+        // Para que solo pueda haber 1 dialogo activo a la vez
+        if(dialogoActivo == false)
+        {
+            dialogoActivo = true;
+            StartCoroutine(MostrarDialogo());
+        }
     }
+
+        
 
     private IEnumerator MostrarDialogo()
     {
+        
+
         // Borramos cualquier texto anterior
         textoDialogo.text = "";
         textNombreNPC.text = "";
