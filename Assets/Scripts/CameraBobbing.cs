@@ -5,6 +5,7 @@ public class CameraBobbing : MonoBehaviour
     public Transform playerTransform;
     public float bobbingSpeed = 0.18f;
     public float bobbingAmount = 0.05f;
+    private float bobbingDefaultValue;
     public float midpoint = 2.0f;
 
     private float timer = 0.0f;
@@ -13,6 +14,7 @@ public class CameraBobbing : MonoBehaviour
     void Start()
     {
         defaultYPos = transform.localPosition.y;
+        bobbingDefaultValue = bobbingAmount;
     }
 
     void Update()
@@ -22,6 +24,15 @@ public class CameraBobbing : MonoBehaviour
         {
             //Debug.Log("Parando camara bobbing");
             return;
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            bobbingAmount *= 2;
+        } 
+        else if(Input.GetKeyUp(KeyCode.RightShift)) 
+        {
+            bobbingAmount = bobbingDefaultValue;
         }
 
         EfectoBobbingCamara();
